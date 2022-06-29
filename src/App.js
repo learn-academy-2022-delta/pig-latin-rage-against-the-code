@@ -38,7 +38,9 @@ class App extends Component {
 
       // your code here!
 
-    //  Rules of Pig Latin
+  
+      
+//  Rules of Pig Latin
 // For words beginning with a vowel, add "way" to the end.
 // For words beginning with one or more consonants, move all of the first consecutive consonants to the end, and add "ay".
 // If the first consonants include "qu", move the "u" along with the "q". Don't forget about words like "squeal" where "qu" doesn't come first!
@@ -51,12 +53,21 @@ class App extends Component {
 // As a user, when I click Submit, I see a Pig Latin translation of the sentence I entered.
 // As a user, the page is styled, and pleasing to use.
 
+let addAy = "y"
+
 let translatePigLatin =(str) =>  {
     let currentWord = "";
 
     if (vowelsArray.indexOf(str[0]) > -1) {
         currentWord = str + "way";
         return currentWord;
+    } else if(currentWord.split("")[0] === addAy ){
+      let secondMatch = str.match(/[aeiou]/g) || 0;
+      let vowel = str.indexOf(currentWord[1]);
+      currentWord = str.substring(vowel) + str.substring(0, vowel) + "ay";
+      return currentWord;
+    } else if (str.slice(0,2) === "qu"){
+      return (str.slice(2) + str.slice(0,2) + "ay")
     } else {
         let firstMatch = str.match(/[aeiou]/g) || 0;
         let vowel = str.indexOf(firstMatch[0]);
@@ -64,13 +75,13 @@ let translatePigLatin =(str) =>  {
         return currentWord;
     }
 }
-console.log(translatePigLatin("apple"))
-//console.log(translatePigLatin(this.state.phrase))
-//console.log(translatePigLatin(this.state.phraseTranslated))
+console.log(translatePigLatin(""))
+console.log(translatePigLatin(this.state.phrase))
+console.log(translatePigLatin(this.state.phraseTranslated))
 
       // Remember: console.log is your friend :)
       // ACTION ITEM: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
-      return (this.state.phraseTranslated)
+      return (translatePigLatin(currentWord))
     })
 
     // joining the array back to a string of translated words
@@ -129,7 +140,7 @@ console.log(translatePigLatin("apple"))
           <button onClick={this.restartGame}>Clear</button>
         </div>
         <p>{this.state.phraseTranslated}</p>
-        <footer>Coded by Darwin & Neco ~</footer>
+        <footer>Coded by Luis, Nicole, Sean, Venessa ~</footer>
       </>
     )
   }
